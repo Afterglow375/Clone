@@ -2,26 +2,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public Rigidbody2D rb;
-    private Vector2 movement;
-    public Animator animator;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Vector2 _movement;
+    [SerializeField] private Animator _animator;
+    private readonly Vector3 _leftScale = new Vector3(-1, 1, 1); 
     private static readonly int Speed = Animator.StringToHash("speed");
     private static readonly int Vertical = Animator.StringToHash("vertical");
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
 
     void Update()
     {
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
+        _movement.x = Input.GetAxis("Horizontal");
+        _movement.y = Input.GetAxis("Vertical");
+
+        _animator.SetFloat(Horizontal, _movement.x);
+        _animator.SetFloat(Vertical, _movement.y);
+        _animator.SetFloat(Speed, _movement.sqrMagnitude);
         
-        animator.SetFloat(Horizontal, movement.x);
-        animator.SetFloat(Vertical, movement.y);
-        animator.SetFloat(Speed, movement.sqrMagnitude);
+        if (_movement.x < 0)
+        {
+            transform.localScale = _leftScale;
+        }
+        else if (_movement.x > 0)
+        {
+            transform.localScale = Vector3.one;
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
     }
 }
