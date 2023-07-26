@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Animator _animator;
-    private readonly Vector3 _leftScale = new Vector3(-1, 1, 1);
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     private Transform _player;
     private Vector2 _movement;
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
@@ -21,15 +21,8 @@ public class Enemy : MonoBehaviour
         _movement = (_player.position - transform.position).normalized;
         _animator.SetFloat(Horizontal, _movement.x);
         _animator.SetFloat(Speed, _movement.sqrMagnitude);
-        
-        if (_movement.x > 0)
-        {
-            transform.localScale = _leftScale;
-        }
-        else if (_movement.x < 0)
-        {
-            transform.localScale = Vector3.one;
-        }
+
+        _spriteRenderer.flipX = _movement.x > 0;
     }
 
     private void FixedUpdate()

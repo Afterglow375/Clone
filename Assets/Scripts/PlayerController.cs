@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Vector2 _movement;
     [SerializeField] private Animator _animator;
-    private readonly Vector3 _leftScale = new Vector3(-1, 1, 1); 
+    [SerializeField] private SpriteRenderer _spriteRenderer;
     private static readonly int Speed = Animator.StringToHash("speed");
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
 
@@ -17,15 +17,8 @@ public class PlayerController : MonoBehaviour
 
         _animator.SetFloat(Horizontal, _movement.x);
         _animator.SetFloat(Speed, _movement.sqrMagnitude);
-        
-        if (_movement.x < 0)
-        {
-            transform.localScale = _leftScale;
-        }
-        else if (_movement.x > 0)
-        {
-            transform.localScale = Vector3.one;
-        }
+
+        _spriteRenderer.flipX = _movement.x < 0;
     }
 
     private void FixedUpdate()
