@@ -306,6 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 26535459}
+  _attackSpeed: 1
+  _bulletPrefab: {fileID: 8638880670187316563, guid: 23b6f456cfa151243a0dc5351ac0cbcf, type: 3}
 --- !u!1 &42487165
 GameObject:
   m_ObjectHideFlags: 0
