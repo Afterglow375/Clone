@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    public float height = 5f;
     private Transform _player;
     private Vector2 _movement;
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
