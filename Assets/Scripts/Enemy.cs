@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     {
         _movement = (_player.position - transform.position).normalized;
         _animator.SetFloat(Horizontal, _movement.x);
-        _animator.SetFloat(Speed, _movement.sqrMagnitude);
+        _animator.SetFloat(Speed, _moveSpeed);
 
         _spriteRenderer.flipX = _movement.x > 0;
     }
