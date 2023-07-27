@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    public float height = 5f;
+    public float hp = 100f;
     private Transform _player;
     private Vector2 _movement;
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
@@ -30,4 +30,19 @@ public class Enemy : MonoBehaviour
     {
         _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
     }
+    
+    public void TakeDamage(float dmg)
+    {
+        hp -= dmg;
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+
 }

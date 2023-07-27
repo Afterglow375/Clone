@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private float _attackSpeed;
     [SerializeField] private GameObject _bulletPrefab;
+    public float bulletForce;
     private GameObject _enemy;
     private float _enemyHeight;
     private Vector3 _enemyPosition;
@@ -22,8 +23,7 @@ public class Gun : MonoBehaviour
     
     void Update()
     {
-        var enemyPosition = _enemy.transform.position;
-        _enemyPosition = new Vector3(enemyPosition.x, enemyPosition.y + _enemyHeight / 2);
+        _enemyPosition = GetClosestEnemy();
         Vector2 direction = (_enemyPosition - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; 
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
@@ -39,6 +39,14 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-        Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
+        GameObject bullet = Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
+        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+        bulletRb.velocity = _muzzle.right * bulletForce;
+    }
+
+    private Vector2 GetClosestEnemy()
+    {
+        var enemyPosition = _enemy.transform.position;
+        return new Vector2(enemyPosition.x, enemyPosition.y + _enemyHeight / 2);
     }
 }
