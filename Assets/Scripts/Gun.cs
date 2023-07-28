@@ -42,7 +42,12 @@ public class Gun : MonoBehaviour
     private void ShootAtEnemy()
     {
         Vector2 direction = (_enemyPosition - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; 
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        // Make the gun  rotate about the character
+        Vector3 offset = direction * 1.5f;
+        // Pivot is on feet, so move the gun up a bit
+        offset.y += 0.75f;
+        transform.position = transform.parent.position + offset;
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         _spriteRenderer.flipY = direction.x < 0;
         if (_elapsedTime >= 1 / attackSpeed)
