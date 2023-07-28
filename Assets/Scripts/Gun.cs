@@ -24,14 +24,10 @@ public class Gun : MonoBehaviour
     void Update()
     {
         _enemyPosition = GetClosestEnemy();
+        PointAtEnemy();
         
         // if we're out of range don't attack
-        if (Vector2.Distance(_enemyPosition, transform.position) > attackRange)
-        {
-            transform.rotation = Quaternion.identity;
-            _spriteRenderer.flipY = false;
-        }
-        else
+        if (Vector2.Distance(_enemyPosition, transform.position) <= attackRange)
         {
             ShootAtEnemy();
         }
@@ -39,17 +35,21 @@ public class Gun : MonoBehaviour
         _elapsedTime += Time.deltaTime;
     }
 
-    private void ShootAtEnemy()
+    private void PointAtEnemy()
     {
         Vector2 direction = (_enemyPosition - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        // Make the gun  rotate about the character
-        Vector3 offset = direction * 1.5f;
+        // Make the gun rotate about the character
+        Vector3 offset = direction * 1.2f;
         // Pivot is on feet, so move the gun up a bit
         offset.y += 0.75f;
         transform.position = transform.parent.position + offset;
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         _spriteRenderer.flipY = direction.x < 0;
+    }
+
+    private void ShootAtEnemy()
+    {
         if (_elapsedTime >= 1 / attackSpeed)
         {
             _projectileManager.Shoot();
