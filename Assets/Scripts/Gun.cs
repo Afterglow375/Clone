@@ -4,46 +4,52 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private float _attackSpeed;
-    [SerializeField] private GameObject _bulletPrefab;
-    public float bulletForce;
+    [SerializeField] private ProjectileManager _projectileManager;
+    public float attackSpeed;
+    public float attackRange;
+    public float attackDamage;
+    public float projectileVelocity;
     private GameObject _enemy;
     private float _enemyHeight;
     private Vector3 _enemyPosition;
-    private Transform _muzzle;
-    private float _time;
+    private float _elapsedTime;
     
     void Start()
     {
-        _muzzle = transform.GetChild(0).transform;
         _enemy = GameObject.Find("Dinosaur");
         _enemyHeight = _enemy.GetComponent<SpriteRenderer>().bounds.size.y/2;
-        _time = _attackSpeed;
+        _elapsedTime = attackSpeed;
     }
     
     void Update()
     {
         _enemyPosition = GetClosestEnemy();
+        
+        // if we're out of range don't attack
+        if (Vector2.Distance(_enemyPosition, transform.position) > attackRange)
+        {
+            transform.rotation = Quaternion.identity;
+            _spriteRenderer.flipY = false;
+        }
+        else
+        {
+            ShootAtEnemy();
+        }
+
+        _elapsedTime += Time.deltaTime;
+    }
+
+    private void ShootAtEnemy()
+    {
         Vector2 direction = (_enemyPosition - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; 
         transform.rotation = Quaternion.Euler(Vector3.forward * angle);
         _spriteRenderer.flipY = direction.x < 0;
-
-        _time += Time.deltaTime;
-        if (_time >= 1 / _attackSpeed)
+        if (_elapsedTime >= 1 / attackSpeed)
         {
-            Shoot();
-            _time = 0;
+            _projectileManager.Shoot();
+            _elapsedTime = 0;
         }
-    }
-
-    private void Shoot()
-    {
-        Bullet bullet = BulletPool.Pool.Get();
-        bullet.transform.position = _muzzle.position;
-        bullet.transform.rotation = _muzzle.rotation;
-        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-        bulletRb.velocity = _muzzle.right * bulletForce;
     }
 
     private Vector2 GetClosestEnemy()
