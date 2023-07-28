@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using Weapons;
 
 public class ProjectileManager : MonoBehaviour
 {
     [SerializeField] private int _poolCapacity;
     [SerializeField] private int _poolLimit;
     [SerializeField] private Projectile _projectilePrefab;
-    [SerializeField] private Gun _gun;
+    [SerializeField] private RangedWeapon _gun;
     private ObjectPool<Projectile> _projectilePool;
 
     private void Start()
