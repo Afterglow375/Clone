@@ -7,5 +7,6 @@ namespace Weapons
         public float attackSpeed;
         public float attackRange;
         public float attackDamage;
+        public float pivotDistance;
     }
 }
