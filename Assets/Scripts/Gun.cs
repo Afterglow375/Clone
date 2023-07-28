@@ -30,7 +30,7 @@ public class Gun : MonoBehaviour
         _spriteRenderer.flipY = direction.x < 0;
 
         _time += Time.deltaTime;
-        if (_time >= _attackSpeed)
+        if (_time >= 1 / _attackSpeed)
         {
             Shoot();
             _time = 0;
@@ -39,7 +39,9 @@ public class Gun : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject bullet = Instantiate(_bulletPrefab, _muzzle.position, _muzzle.rotation);
+        Bullet bullet = BulletPool.Pool.Get();
+        bullet.transform.position = _muzzle.position;
+        bullet.transform.rotation = _muzzle.rotation;
         Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
         bulletRb.velocity = _muzzle.right * bulletForce;
     }

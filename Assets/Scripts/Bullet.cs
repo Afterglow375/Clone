@@ -4,12 +4,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float damage = 10f;
-
-    private void Start()
-    {
-        Destroy(gameObject, 2);
-    }
-
+    
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.name == "Enemy")
@@ -18,6 +13,6 @@ public class Bullet : MonoBehaviour
             enemy.TakeDamage(damage);
         }
         
-        Destroy(gameObject);
+        BulletPool.Pool.Release(this);
     }
 }

@@ -222,9 +222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 26535459}
-  _attackSpeed: 1
+  _attackSpeed: 10
   _bulletPrefab: {fileID: 8638880670187316563, guid: 23b6f456cfa151243a0dc5351ac0cbcf, type: 3}
-  bulletForce: 75
+  bulletForce: 50
 --- !u!1 &72085619
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,9 +331,57 @@ Transform:
   m_Children:
   - {fileID: 664587684}
   - {fileID: 1528049844}
+  - {fileID: 246366485}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &246366484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 246366485}
+  - component: {fileID: 246366486}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &246366485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246366484}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 120297212}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246366486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246366484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd45a92f8a18904197b446933212843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolCapacity: 20
+  _poolLimit: 100
+  _bulletPrefab: {fileID: 5677068806409220173, guid: 23b6f456cfa151243a0dc5351ac0cbcf, type: 3}
 --- !u!1 &283784541
 GameObject:
   m_ObjectHideFlags: 0
