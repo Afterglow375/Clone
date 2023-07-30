@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // TODO: use new unity input system
         _movement.x = Input.GetAxis("Horizontal");
         _movement.y = Input.GetAxis("Vertical");
 

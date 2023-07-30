@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1143698528935072896}
-  _moveSpeed: 0
+  _moveSpeed: 2
   _animator: {fileID: 7713869725675581179}
   _spriteRenderer: {fileID: 1373305990938729403}
-  hp: 100
+  hp: 1000
 --- !u!50 &1143698528935072896
 Rigidbody2D:
   serializedVersion: 4

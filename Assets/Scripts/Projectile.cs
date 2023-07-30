@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.name == "Enemy")
+        if (col.CompareTag("Enemy"))
         {
             Enemy enemy = col.GetComponent<Enemy>();
             enemy.TakeDamage(_attackDamage);
