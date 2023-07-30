@@ -5,7 +5,8 @@ namespace Weapons
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] private Weapon _weaponPrefab;
-        private GameObject _enemy;
+        private Enemy _enemy;
+        private PlayerController _player;
         private float _enemyHeight;
         private Weapon _weapon;
         private float _elapsedTime;
@@ -15,7 +16,8 @@ namespace Weapons
 
         void Start()
         {
-            _enemy = GameObject.Find("Dinosaur");
+            _enemy = GameObject.Find("Dinosaur").GetComponent<Enemy>();
+            _player = transform.parent.GetComponent<PlayerController>();
             _enemyHeight = _enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2;
             _weapon = Instantiate(_weaponPrefab, transform);
         }
@@ -29,7 +31,8 @@ namespace Weapons
             AimAtEnemy(enemyPosition);
             
             // if the enemy is in range and weapon isn't on cooldown
-            if (Vector2.Distance(enemyPosition, transform.position) <= _weapon.attackRange && 
+            
+            if (Vector2.Distance(enemyPosition, _player.GetCenter()) <= _weapon.attackRange && 
                 _elapsedTime >= 1 / _weapon.attackSpeed)
             {
                 _weapon.Attack();
@@ -38,22 +41,19 @@ namespace Weapons
 
             _elapsedTime += Time.deltaTime;
         }
-
+        
         private Vector2 GetClosestEnemy()
         {
-            var enemyPosition = _enemy.transform.position;
-            return new Vector2(enemyPosition.x, enemyPosition.y + _enemyHeight / 2);
+            return _enemy.GetCenter();
         }
         
         private void AimAtEnemy(Vector3 enemyPosition)
         {
-            _enemyDirection = (enemyPosition - transform.position).normalized;
+            _enemyDirection = (enemyPosition - _player.GetCenter()).normalized;
             float angle = Mathf.Atan2(_enemyDirection.y, _enemyDirection.x) * Mathf.Rad2Deg;
             // Make the gun rotate about the character
             Vector3 offset = _enemyDirection * _weapon.pivotDistance;
-            // Pivot is on feet, so move the gun up a bit
-            offset.y += 0.75f;
-            transform.position = transform.parent.position + offset;
+            transform.position = _player.GetCenter() + offset;
             transform.rotation = Quaternion.Euler(Vector3.forward * angle);
             transform.localScale = FacingLeft() ? _faceLeftScale : _faceRightScale;
         }

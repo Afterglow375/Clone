@@ -12,6 +12,7 @@ namespace Weapons
         protected override void AttackImpl()
         {
             _projectileManager.Shoot();
+            ResetIsAttacking();
         }
     }
 }

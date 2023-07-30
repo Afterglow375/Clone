@@ -52,7 +52,7 @@ namespace Weapons
         {
             if (col.CompareTag("Enemy"))
             {
-                Enemy enemy = col.GetComponent<Enemy>();
+                Enemy enemy = col.transform.parent.GetComponent<Enemy>();
                 enemy.TakeDamage(_attackDamage);
             }
         

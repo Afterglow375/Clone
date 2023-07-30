@@ -1,6 +1,7 @@
+using DefaultNamespace;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Unit
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private Rigidbody2D _rb;
@@ -9,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     private static readonly int Speed = Animator.StringToHash("speed");
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
-
+    
     void Update()
     {
         // TODO: use new unity input system

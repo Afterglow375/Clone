@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpeed: 1
-  attackRange: 2
+  attackRange: 2.5
   attackDamage: 10
   pivotDistance: 0.5
   knockback: 0

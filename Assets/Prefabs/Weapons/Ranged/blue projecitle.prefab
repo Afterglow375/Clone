@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4645386635991840809}
   - component: {fileID: 5483104741278779836}
   - component: {fileID: 7914893169126638023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: blue projecitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

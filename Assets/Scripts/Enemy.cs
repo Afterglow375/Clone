@@ -1,6 +1,7 @@
+using DefaultNamespace;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Unit
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _moveSpeed;
@@ -12,7 +13,7 @@ public class Enemy : MonoBehaviour
     private static readonly int Horizontal = Animator.StringToHash("horizontal");
     private static readonly int Speed = Animator.StringToHash("speed");
 
-    void Start()
+    protected override void StartImpl()
     {
         _player = GameObject.Find("Player").transform;
     }
