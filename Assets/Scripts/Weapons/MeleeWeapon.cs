@@ -7,7 +7,7 @@ namespace Weapons
         [SerializeField] private Animator _animator;
         private static readonly int AttackAnim = Animator.StringToHash("Attack");
 
-        public override void Attack()
+        protected override void AttackImpl()
         {
             _animator.SetTrigger(AttackAnim);
         }

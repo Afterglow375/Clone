@@ -10,7 +10,20 @@ namespace Weapons
         public float attackDamage;
         public float pivotDistance;
         public float knockback;
+        public bool isAttacking;
         
-        public abstract void Attack();
+        public void Attack()
+        {
+            isAttacking = true;
+            AttackImpl();
+        }
+
+        protected abstract void AttackImpl();
+
+        // used by animation event when the attack ends
+        public void ResetIsAttacking()
+        {
+            isAttacking = false;
+        }
     }
 }

@@ -124,4 +124,5 @@ MonoBehaviour:
   attackDamage: 10
   pivotDistance: 0.5
   knockback: 0
+  isAttacking: 0
   _animator: {fileID: 6202445979266015531}

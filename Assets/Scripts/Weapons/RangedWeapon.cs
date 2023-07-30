@@ -9,7 +9,7 @@ namespace Weapons
         public float numPiercing;
         public float piercingFalloff;
     
-        public override void Attack()
+        protected override void AttackImpl()
         {
             _projectileManager.Shoot();
         }

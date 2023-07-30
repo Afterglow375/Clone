@@ -22,6 +22,9 @@ namespace Weapons
         
         void Update()
         {
+            if (_weapon.isAttacking)
+                return;
+            
             Vector2 enemyPosition = GetClosestEnemy();
             AimAtEnemy(enemyPosition);
             
