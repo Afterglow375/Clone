@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Weapons
 {
@@ -27,11 +28,10 @@ namespace Weapons
             if (_weapon.isAttacking)
                 return;
             
-            Vector2 enemyPosition = GetClosestEnemy();
+            Vector2 enemyPosition = GetClosestEnemyPosition();
             AimAtEnemy(enemyPosition);
             
             // if the enemy is in range and weapon isn't on cooldown
-            
             if (Vector2.Distance(enemyPosition, _player.GetCenter()) <= _weapon.attackRange && 
                 _elapsedTime >= 1 / _weapon.attackSpeed)
             {
@@ -42,9 +42,23 @@ namespace Weapons
             _elapsedTime += Time.deltaTime;
         }
         
-        private Vector2 GetClosestEnemy()
+        private Vector2 GetClosestEnemyPosition()
         {
-            return _enemy.GetCenter();
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            
+            Enemy closest = null;
+            float distance = Mathf.Infinity;
+            foreach (Enemy enemy in enemies)
+            {
+                Vector3 diff = enemy.GetCenter() - _player.GetCenter();
+                float curDistance = diff.sqrMagnitude;
+                if (curDistance < distance)
+                {
+                    closest = enemy;
+                    distance = curDistance;
+                }
+            }
+            return closest.GetCenter();
         }
         
         private void AimAtEnemy(Vector3 enemyPosition)

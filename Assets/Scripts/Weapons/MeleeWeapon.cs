@@ -31,6 +31,7 @@ namespace Weapons
             {
                 if (col.CompareTag("Enemy"))
                 {
+                    Debug.Log("enemy hit");
                     Enemy enemy = col.transform.parent.GetComponent<Enemy>();
                     enemy.TakeDamage(attackDamage);
                 }

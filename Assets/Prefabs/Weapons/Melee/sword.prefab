@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 575581081037356988}
   - component: {fileID: 6202445979266015531}
   - component: {fileID: 8916755972494637008}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed: 1
   attackRange: 2.5
-  attackDamage: 10
+  attackDamage: 50
   pivotDistance: 0.5
   knockback: 0
   isAttacking: 0
