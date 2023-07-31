@@ -107,6 +107,9 @@ MonoBehaviour:
   _moveSpeed: 6
   _hitbox: {fileID: 1105919018495930201}
   _maxHp: 100
+  dashDuration: 0.2
+  dashCooldown: 1
+  dashSpeedMultiplier: 1.75
 --- !u!50 &2339349964290955318
 Rigidbody2D:
   serializedVersion: 4
