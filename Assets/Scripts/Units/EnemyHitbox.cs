@@ -10,7 +10,7 @@ namespace Units
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
+            if (other.name == "WalkingHitbox")
             {
                 float enemyDmg = _enemy.dmg;
                 UnitManager.Instance.TakePlayerDamage(enemyDmg);

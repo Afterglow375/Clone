@@ -30,11 +30,8 @@ namespace Weapons
         {
             foreach (Collider2D col in Physics2D.OverlapCircleAll(circleOrigin.position, radius, LayerMaskHelper.EnemyHitboxMask))
             {
-                if (col.CompareTag("Enemy"))
-                {
-                    Enemy enemy = col.transform.parent.GetComponent<Enemy>();
-                    enemy.TakeDamage(attackDamage);
-                }
+                Enemy enemy = col.transform.parent.GetComponent<Enemy>();
+                enemy.TakeDamage(attackDamage);
             }
         }
     }
