@@ -30,6 +30,11 @@ namespace Units
             return _player.GetCenter();
         }
         
+        public bool IsPlayerFacingLeft()
+        {
+            return _player.IsFacingLeft();
+        }
+        
         public Collider2D GetClosestEnemy()
         {
             // optimizations...
