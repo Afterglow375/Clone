@@ -5,6 +5,8 @@ namespace Units
 {
     public class Enemy : Unit
     {
+        public float dmg;
+        
         private void Update()
         {
             _movement = (UnitManager.Instance.GetPlayerPivot() - transform.position).normalized;

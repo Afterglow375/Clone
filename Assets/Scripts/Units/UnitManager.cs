@@ -55,5 +55,15 @@ namespace Units
             }
             return closest;
         }
+
+        public void TakePlayerDamage(float dmg)
+        {
+            _player.TakeDamage(dmg);
+        }
+        
+        public float GetPlayerMaxHp()
+        {
+            return _player.GetMaxHp();
+        }
     }
 }
