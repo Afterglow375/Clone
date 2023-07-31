@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -38,6 +39,12 @@ namespace UI
 
             // Hide the pause canvas
             _pauseMenuUI.SetActive(false);
+        }
+
+        public void MainMenu()
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
