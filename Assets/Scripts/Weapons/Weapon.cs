@@ -1,4 +1,5 @@
 ﻿using System;
+using Units;
 using UnityEngine;
 
 namespace Weapons
@@ -23,6 +24,12 @@ namespace Weapons
         public void ResetIsAttacking()
         {
             isAttacking = false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;;
+            Gizmos.DrawWireSphere(UnitManager.Instance.GetPlayerCenter(), attackRange);
         }
     }
 }
