@@ -12,7 +12,7 @@ namespace Units
             _animator.SetFloat(Horizontal, _movement.x);
             _animator.SetFloat(Speed, _movement.sqrMagnitude);
 
-            _spriteRenderer.flipX = _movement.x < 0;
+            _spriteRenderer.flipX = IsFacingLeft();
         }
 
         private void FixedUpdate()
@@ -20,7 +20,7 @@ namespace Units
             _rb.MovePosition(_rb.position + _movement.normalized * _moveSpeed * Time.fixedDeltaTime);
         }
 
-        public override void Die()
+        protected override void Die()
         {
             _currHp = _maxHp;
         }

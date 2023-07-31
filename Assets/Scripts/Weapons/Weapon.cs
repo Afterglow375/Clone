@@ -11,7 +11,7 @@ namespace Weapons
         public float pivotDistance;
         public float knockback;
         public bool isAttacking;
-        
+
         public void Attack()
         {
             isAttacking = true;

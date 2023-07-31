@@ -1,6 +1,7 @@
 ﻿using System;
 using Units;
 using UnityEngine;
+using Utils;
 
 namespace Weapons
 {
@@ -27,12 +28,10 @@ namespace Weapons
         // Called by attack animation
         public void DetectColliders()
         {
-            LayerMask mask = LayerMask.GetMask("EnemyHitbox");
-            foreach (Collider2D col in Physics2D.OverlapCircleAll(circleOrigin.position, radius, mask))
+            foreach (Collider2D col in Physics2D.OverlapCircleAll(circleOrigin.position, radius, LayerMaskHelper.EnemyHitboxMask))
             {
                 if (col.CompareTag("Enemy"))
                 {
-                    Debug.Log("enemy hit");
                     Enemy enemy = col.transform.parent.GetComponent<Enemy>();
                     enemy.TakeDamage(attackDamage);
                 }

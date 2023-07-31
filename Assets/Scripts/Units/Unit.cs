@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Units
@@ -17,7 +18,9 @@ namespace Units
         protected static readonly int Speed = Animator.StringToHash("speed");
         protected static readonly int Horizontal = Animator.StringToHash("horizontal");
 
-        void Start()
+        private bool _facingLeft;
+        
+        private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
@@ -31,12 +34,13 @@ namespace Units
 
             StartImpl();
         }
-        
+
         protected virtual void StartImpl() {}
 
+        // ensure that the hitbox's transform is at the center of the hitbox collider for this func to work
         public Vector3 GetCenter()
         {
-            return _hitbox.bounds.center;
+            return _hitbox.transform.position;
         }
 
         public virtual void TakeDamage(float dmg)
@@ -48,9 +52,20 @@ namespace Units
             }
         }
 
-        public virtual void Die()
+        protected virtual void Die()
         {
             Destroy(gameObject);
+        }
+
+        public bool IsFacingLeft()
+        {
+            if (_movement.x == 0)
+            {
+                return _facingLeft;
+            }
+
+            _facingLeft = _movement.x < 0;
+            return _facingLeft;
         }
     }
 }

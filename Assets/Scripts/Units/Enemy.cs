@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Units
@@ -10,7 +11,7 @@ namespace Units
             _animator.SetFloat(Horizontal, _movement.x);
             _animator.SetFloat(Speed, _moveSpeed);
 
-            _spriteRenderer.flipX = _movement.x > 0;
+            _spriteRenderer.flipX = IsFacingLeft();
         }
 
         private void FixedUpdate()
