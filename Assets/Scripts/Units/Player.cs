@@ -1,4 +1,5 @@
 using System;
+using Managers;
 using UnityEngine;
 
 namespace Units
@@ -23,6 +24,9 @@ namespace Units
 
         void Update()
         {
+            if (GameManager.Instance.IsPaused)
+                return;
+            
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.y = Input.GetAxisRaw("Vertical");
 
