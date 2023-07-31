@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Units;
 using UnityEngine;
 
 namespace Weapons
@@ -6,9 +7,6 @@ namespace Weapons
     public class WeaponController : MonoBehaviour
     {
         [SerializeField] private Weapon _weaponPrefab;
-        private Enemy _enemy;
-        private PlayerController _player;
-        private float _enemyHeight;
         private Weapon _weapon;
         private float _elapsedTime;
         private Vector2 _enemyDirection;
@@ -17,9 +15,6 @@ namespace Weapons
 
         void Start()
         {
-            _enemy = GameObject.Find("Dinosaur").GetComponent<Enemy>();
-            _player = transform.parent.GetComponent<PlayerController>();
-            _enemyHeight = _enemy.GetComponent<SpriteRenderer>().bounds.size.y / 2;
             _weapon = Instantiate(_weaponPrefab, transform);
         }
         
@@ -28,11 +23,11 @@ namespace Weapons
             if (_weapon.isAttacking)
                 return;
             
-            Vector2 enemyPosition = GetClosestEnemyPosition();
+            Vector3 enemyPosition = UnitManager.Instance.GetClosestEnemyPosition();
             AimAtEnemy(enemyPosition);
             
             // if the enemy is in range and weapon isn't on cooldown
-            if (Vector2.Distance(enemyPosition, _player.GetCenter()) <= _weapon.attackRange && 
+            if (Vector2.Distance(enemyPosition, UnitManager.Instance.GetPlayerCenter()) <= _weapon.attackRange && 
                 _elapsedTime >= 1 / _weapon.attackSpeed)
             {
                 _weapon.Attack();
@@ -42,32 +37,13 @@ namespace Weapons
             _elapsedTime += Time.deltaTime;
         }
         
-        private Vector2 GetClosestEnemyPosition()
-        {
-            Enemy[] enemies = FindObjectsOfType<Enemy>();
-            
-            Enemy closest = null;
-            float distance = Mathf.Infinity;
-            foreach (Enemy enemy in enemies)
-            {
-                Vector3 diff = enemy.GetCenter() - _player.GetCenter();
-                float curDistance = diff.sqrMagnitude;
-                if (curDistance < distance)
-                {
-                    closest = enemy;
-                    distance = curDistance;
-                }
-            }
-            return closest.GetCenter();
-        }
-        
         private void AimAtEnemy(Vector3 enemyPosition)
         {
-            _enemyDirection = (enemyPosition - _player.GetCenter()).normalized;
+            _enemyDirection = (enemyPosition - UnitManager.Instance.GetPlayerCenter()).normalized;
             float angle = Mathf.Atan2(_enemyDirection.y, _enemyDirection.x) * Mathf.Rad2Deg;
             // Make the gun rotate about the character
             Vector3 offset = _enemyDirection * _weapon.pivotDistance;
-            transform.position = _player.GetCenter() + offset;
+            transform.position = UnitManager.Instance.GetPlayerCenter() + offset;
             transform.rotation = Quaternion.Euler(Vector3.forward * angle);
             transform.localScale = FacingLeft() ? _faceLeftScale : _faceRightScale;
         }

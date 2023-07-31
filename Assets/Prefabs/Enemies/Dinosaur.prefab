@@ -199,12 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 021d4a7808b4e02459f3960c058c6cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 7406451514374983773}
-  _rb: {fileID: 1143698528935072896}
-  _moveSpeed: 1
-  _animator: {fileID: 7713869725675581179}
-  _spriteRenderer: {fileID: 1373305990938729403}
-  hp: 100
+  _moveSpeed: 4
+  _hitbox: {fileID: 7406451514374983773}
+  _maxHp: 100
 --- !u!50 &1143698528935072896
 Rigidbody2D:
   serializedVersion: 4
