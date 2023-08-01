@@ -38,7 +38,7 @@ namespace Weapons
             foreach (Collider2D col in Physics2D.OverlapCircleAll(circleOrigin.position, radius, LayerMaskHelper.EnemyHitboxMask))
             {
                 Enemy enemy = col.transform.parent.GetComponent<Enemy>();
-                Vector2 knockbackVector = (col.transform.position - UnitManager.Instance.GetPlayerCenter()).normalized * knockback;
+                Vector2 knockbackVector = (col.transform.position - _player.GetCenter()).normalized * knockback;
                 enemy.TakeDamage(attackDamage, knockbackVector);
             }
         }

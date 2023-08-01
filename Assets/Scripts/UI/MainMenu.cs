@@ -9,5 +9,17 @@ namespace UI
         {
             SceneManager.LoadScene("Main");
         }
+        
+        public void Host()
+        {
+        }
+        
+        public void Server()
+        {
+        }
+        
+        public void Client()
+        {
+        }
     }
 }

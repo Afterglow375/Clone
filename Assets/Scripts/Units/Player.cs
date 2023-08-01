@@ -15,11 +15,12 @@ namespace Units
         private bool _isDashing; 
         
         // params: player hp after taking dmg, enemy damage
-        public static event Action<float, float> PlayerHealthChangeEvent;
+        public event Action<float, float> PlayerHealthChangeEvent;
 
         protected override void StartImpl()
         {
             _dashSpeed = _moveSpeed * dashSpeedMultiplier;
+            UnitManager.Instance.AddPlayer(this);
         }
 
         void Update()

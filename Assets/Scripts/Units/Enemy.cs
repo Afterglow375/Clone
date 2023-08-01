@@ -9,11 +9,15 @@ namespace Units
         
         private void Update()
         {
-            _movement = (UnitManager.Instance.GetPlayerPivot() - transform.position).normalized;
-            _animator.SetFloat(Horizontal, _movement.x);
-            _animator.SetFloat(Speed, _moveSpeed);
+            Player nearestPlayer = UnitManager.Instance.GetNearestPlayer(GetCenter());
+            if (nearestPlayer)
+            {
+                _movement = (nearestPlayer.GetCenter() - transform.position).normalized;
+                _animator.SetFloat(Horizontal, _movement.x);
+                _animator.SetFloat(Speed, _moveSpeed);
 
-            _spriteRenderer.flipX = IsFacingLeft();
+                _spriteRenderer.flipX = IsFacingLeft();
+            }
         }
 
         private void FixedUpdate()

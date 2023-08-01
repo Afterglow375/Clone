@@ -1,5 +1,4 @@
-﻿using System;
-using DG.Tweening;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
@@ -7,8 +6,7 @@ namespace Units
 {
     public class UnitManager : Singleton<UnitManager>
     {
-        [SerializeField] private Player _player;
-        
+        private List<Player> _players = new List<Player>(4);
         private Vector2 _screenDimensions;
         private Camera _camera;
 
@@ -22,32 +20,41 @@ namespace Units
             _screenDimensions = new Vector2(screenWidth, screenHeight);
         }
 
-        public Vector3 GetPlayerPivot()
+        public void AddPlayer(Player player)
         {
-            return _player.transform.position;
+            _players.Add(player);
         }
         
-        public Vector3 GetPlayerCenter()
+        public Player GetNearestPlayer(Vector2 position)
         {
-            return _player.GetCenter();
+            Player closest = null;
+            float distance = Mathf.Infinity;
+            foreach (Player player in _players)
+            {
+                Vector2 diff = (Vector2) player.GetCenter() - position;
+                float curDistance = diff.sqrMagnitude;
+                if (curDistance < distance)
+                {
+                    closest = player;
+                    distance = curDistance;
+                }
+            }
+
+            return closest;
         }
         
-        public bool IsPlayerFacingLeft()
-        {
-            return _player.IsFacingLeft();
-        }
-        
-        public Collider2D GetClosestEnemy()
+        public Collider2D GetNearestEnemy(Vector2 position)
         {
             // optimizations...
             // call less often (like every .2 secs + after u kill current closest enemy)
             // use OverlapBoxNonAlloc to avoid creating a new arr every search
+            // use KD tree
             Collider2D[] enemies = Physics2D.OverlapBoxAll(_camera.transform.position, _screenDimensions, 0, LayerMaskHelper.EnemyHitboxMask);
             Collider2D closest = null;
             float distance = Mathf.Infinity;
             foreach (Collider2D enemy in enemies)
             {
-                Vector3 diff = enemy.transform.position - _player.GetCenter();
+                Vector2 diff = (Vector2) enemy.transform.position - position;
                 float curDistance = diff.sqrMagnitude;
                 if (curDistance < distance)
                 {
@@ -58,14 +65,9 @@ namespace Units
             return closest;
         }
 
-        public void TakePlayerDamage(float dmg)
+        public void AttackPlayer(Player player, float dmg)
         {
-            _player.TakeDamage(dmg);
-        }
-        
-        public float GetPlayerMaxHp()
-        {
-            return _player.GetMaxHp();
+            player.TakeDamage(dmg);
         }
     }
 }

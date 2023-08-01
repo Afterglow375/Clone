@@ -7,6 +7,7 @@ namespace Weapons
     {
         [SerializeField] private Weapon _weaponPrefab;
         private Weapon _weapon;
+        private Player _player;
         private float _weaponCooldownTimer;
         private float _timeBetweenAttacks;
         private Vector2 _enemyDirection;
@@ -21,6 +22,7 @@ namespace Weapons
             _timeBetweenAttacks = 1 / _weapon.attackSpeed - _weapon.attackAnimationLength;
             _originalPosition = transform.position;
             _originalRotation = transform.rotation;
+            _player = GetComponentInParent<Player>();
         }
 
         void Update()
@@ -28,7 +30,7 @@ namespace Weapons
             if (_weapon.isAttacking)
                 return;
             
-            Collider2D enemy = UnitManager.Instance.GetClosestEnemy();
+            Collider2D enemy = UnitManager.Instance.GetNearestEnemy(_player.GetCenter());
             if (enemy == null)
             {
                 ResetWeaponPosition();
@@ -53,9 +55,9 @@ namespace Weapons
         {
             transform.SetLocalPositionAndRotation(_originalPosition, _originalRotation);
 
-            if (UnitManager.Instance.IsPlayerFacingLeft())
+            if (_player.IsFacingLeft())
             {
-                transform.RotateAround(UnitManager.Instance.GetPlayerCenter(), transform.up, 180f);
+                transform.RotateAround(_player.GetCenter(), transform.up, 180f);
                 transform.localScale = _faceRightScale;
             }
             else
@@ -66,17 +68,17 @@ namespace Weapons
 
         private void AimAtEnemy(Vector3 enemyPosition)
         {
-            _enemyDirection = (enemyPosition - UnitManager.Instance.GetPlayerCenter()).normalized;
+            _enemyDirection = (enemyPosition - _player.GetCenter()).normalized;
             float angle = Mathf.Atan2(_enemyDirection.y, _enemyDirection.x) * Mathf.Rad2Deg;
             transform.SetLocalPositionAndRotation(_originalPosition, _originalRotation);
             // Make the weapon rotate about the character
-            transform.RotateAround(UnitManager.Instance.GetPlayerCenter(), transform.forward, angle);
+            transform.RotateAround(_player.GetCenter(), transform.forward, angle);
             transform.localScale = FacingLeft() ? _faceLeftScale : _faceRightScale;
         }
 
         private bool CanAttackEnemy(Vector3 enemyPosition)
         {
-            return Vector2.Distance(enemyPosition, UnitManager.Instance.GetPlayerCenter()) <= _weapon.attackRange &&
+            return Vector2.Distance(enemyPosition, _player.GetCenter()) <= _weapon.attackRange &&
                    _weaponCooldownTimer >= _timeBetweenAttacks;
         }
 

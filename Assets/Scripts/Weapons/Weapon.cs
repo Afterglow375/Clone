@@ -1,4 +1,5 @@
-﻿using Units;
+﻿using System;
+using Units;
 using UnityEngine;
 
 namespace Weapons
@@ -11,6 +12,15 @@ namespace Weapons
         public float attackDamage;
         public float knockback;
         public bool isAttacking;
+
+        protected Player _player;
+
+        public void Start()
+        {
+            _player = GetComponentInParent<Player>();
+        }
+
+        protected virtual void StartImpl() {}
 
         public void Attack()
         {
@@ -29,7 +39,7 @@ namespace Weapons
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;;
-            Gizmos.DrawWireSphere(UnitManager.Instance.GetPlayerCenter(), attackRange);
+            Gizmos.DrawWireSphere(_player.GetCenter(), attackRange);
         }
     }
 }

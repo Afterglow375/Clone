@@ -13,7 +13,8 @@ namespace Units
             if (other.name == "WalkingHitbox")
             {
                 float enemyDmg = _enemy.dmg;
-                UnitManager.Instance.TakePlayerDamage(enemyDmg);
+                Player player = other.GetComponentInParent<Player>();
+                UnitManager.Instance.AttackPlayer(player, enemyDmg);
             }
         }
     }

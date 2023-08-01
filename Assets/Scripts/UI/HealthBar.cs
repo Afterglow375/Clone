@@ -7,21 +7,23 @@ namespace UI
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Image _healthbarSprite;
+        private Player _player;
         private float _maxHealth;
         
         private void Awake()
         {
-            Player.PlayerHealthChangeEvent += UpdateHealthBar;
+            _player = GetComponentInParent<Player>();
+            _player.PlayerHealthChangeEvent += UpdateHealthBar;
         }
 
         private void Start()
         {
-            _maxHealth = UnitManager.Instance.GetPlayerMaxHp();
+            _maxHealth = _player.GetMaxHp();
         }
 
         private void OnDestroy()
         {
-            Player.PlayerHealthChangeEvent -= UpdateHealthBar;
+            _player.PlayerHealthChangeEvent -= UpdateHealthBar;
         }
         
         public void UpdateHealthBar(float currentHealth, float damage)

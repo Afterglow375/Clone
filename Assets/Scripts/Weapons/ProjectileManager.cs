@@ -11,6 +11,7 @@ namespace Weapons
         [SerializeField] private Projectile _projectilePrefab;
         [SerializeField] private RangedWeapon _gun;
         private ObjectPool<Projectile> _projectilePool;
+        private Player _player;
 
         private void Start()
         {
@@ -23,6 +24,8 @@ namespace Weapons
                 _poolCapacity,
                 _poolLimit
             );
+            
+            _player = GetComponentInParent<Player>();
         }
 
         public void Shoot()
@@ -48,7 +51,7 @@ namespace Weapons
             projectile.SetProjectileVelocity(_gun.projectileVelocity);
             projectile.SetProjectileManager(this);
             float muzzleDistanceFromCenter =
-                Vector2.Distance(transform.parent.position, UnitManager.Instance.GetPlayerCenter());
+                Vector2.Distance(transform.parent.position, _player.GetCenter());
             projectile.SetTimeLimit((_gun.attackRange - muzzleDistanceFromCenter) / _gun.projectileVelocity);
             return projectile;
         }
