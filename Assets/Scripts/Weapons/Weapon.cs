@@ -5,6 +5,7 @@ namespace Weapons
 {
     public abstract class Weapon : MonoBehaviour
     {
+        public float attackAnimationLength;
         public float attackSpeed;
         public float attackRange;
         public float attackDamage;

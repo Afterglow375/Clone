@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31377c443168494ab14e7bf6bac9ea0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimationLength: 0.5
   attackSpeed: 1
   attackRange: 2.5
   attackDamage: 50

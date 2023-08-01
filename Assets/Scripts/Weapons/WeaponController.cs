@@ -7,7 +7,8 @@ namespace Weapons
     {
         [SerializeField] private Weapon _weaponPrefab;
         private Weapon _weapon;
-        private float _elapsedTime;
+        private float _weaponCooldownTimer;
+        private float _timeBetweenAttacks;
         private Vector2 _enemyDirection;
         private readonly Vector3 _faceRightScale = new Vector3(1, 1, 1);
         private readonly Vector3 _faceLeftScale = new Vector3(1, -1, 1);
@@ -17,6 +18,7 @@ namespace Weapons
         void Start()
         {
             _weapon = Instantiate(_weaponPrefab, transform);
+            _timeBetweenAttacks = 1 / _weapon.attackSpeed - _weapon.attackAnimationLength;
             _originalPosition = transform.position;
             _originalRotation = transform.rotation;
         }
@@ -40,11 +42,11 @@ namespace Weapons
                 if (CanAttackEnemy(enemyPosition))
                 {
                     _weapon.Attack();
-                    _elapsedTime = 0;
+                    _weaponCooldownTimer = 0;
                 }
             }
             
-            _elapsedTime += Time.deltaTime;
+            _weaponCooldownTimer += Time.deltaTime;
         }
 
         private void ResetWeaponPosition()
@@ -75,7 +77,7 @@ namespace Weapons
         private bool CanAttackEnemy(Vector3 enemyPosition)
         {
             return Vector2.Distance(enemyPosition, UnitManager.Instance.GetPlayerCenter()) <= _weapon.attackRange &&
-                   _elapsedTime >= 1 / _weapon.attackSpeed;
+                   _weaponCooldownTimer >= _timeBetweenAttacks;
         }
 
         private bool FacingLeft()

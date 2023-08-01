@@ -9,7 +9,7 @@ namespace Units
         public float dashDuration;
         public float dashCooldown;
         public float dashSpeedMultiplier;
-        private float _cooldownTimer;
+        private float _dashCooldownTimer;
         private float _dashSpeed;
         private float _dashTimer;
         private bool _isDashing; 
@@ -35,15 +35,11 @@ namespace Units
 
             _spriteRenderer.flipX = IsFacingLeft();
             
-            if (_cooldownTimer > 0)
-            {
-                _cooldownTimer -= Time.deltaTime;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && !_isDashing && IsMoving() && _cooldownTimer <= 0)
+            _dashCooldownTimer -= Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.Space) && !_isDashing && IsMoving() && _dashCooldownTimer <= 0)
             {
                 StartDash();
-                _cooldownTimer = dashCooldown;
+                _dashCooldownTimer = dashCooldown;
             }
         }
 
@@ -73,11 +69,6 @@ namespace Units
         {
             _isDashing = true;
             _dashTimer = dashDuration;
-    
-            // Record the starting position of the player
-            Vector2 startPosition = transform.position;
-    
-            // Apply the dash movement
             _rb.velocity = _movement.normalized * _dashSpeed;
         }
 

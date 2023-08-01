@@ -13,6 +13,13 @@ namespace Weapons
         public Transform circleOrigin;
         public float radius;
 
+        private void Awake()
+        {
+            // speed up animation to keep up with attack speed if necessary
+            _animator.speed = Mathf.Max(attackSpeed * attackAnimationLength, 1f);
+            attackAnimationLength /= _animator.speed;
+        }
+
         protected override void AttackImpl()
         {
             _animator.SetTrigger(AttackAnim);
