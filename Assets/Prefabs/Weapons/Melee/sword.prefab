@@ -123,8 +123,7 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 2.5
   attackDamage: 50
-  pivotDistance: 0.5
-  knockback: 0
+  knockback: 20
   isAttacking: 0
   _animator: {fileID: 6202445979266015531}
   circleOrigin: {fileID: 8962458914823884096}

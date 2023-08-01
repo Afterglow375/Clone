@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -15,6 +16,7 @@ namespace Units
         protected Animator _animator;
         protected Vector2 _movement;
         protected float _currHp;
+        private bool _isKnocked;
         protected static readonly int Speed = Animator.StringToHash("speed");
         protected static readonly int Horizontal = Animator.StringToHash("horizontal");
 
@@ -42,7 +44,7 @@ namespace Units
         {
             return _hitbox.transform.position;
         }
-
+        
         public virtual void TakeDamage(float dmg)
         {
             _currHp -= dmg;
@@ -50,6 +52,33 @@ namespace Units
             {
                 Die();
             }
+        }
+
+        public virtual void TakeDamage(float dmg, Vector2 knockback)
+        {
+            _currHp -= dmg;
+            if (_currHp <= 0)
+            {
+                Die();
+            }
+            else if (knockback.magnitude > 0)
+            {
+                _isKnocked = true;
+                _rb.AddForce(knockback, ForceMode2D.Impulse);
+                StartCoroutine(KnockbackFeedback());
+            }
+        }
+
+        private IEnumerator KnockbackFeedback()
+        {
+            yield return new WaitForSeconds(UnitManager.Instance.knockbackDuration);
+            _rb.velocity = Vector2.zero;
+            _isKnocked = false;
+        }
+
+        public bool IsKnocked()
+        {
+            return _isKnocked;
         }
 
         protected virtual void Die()

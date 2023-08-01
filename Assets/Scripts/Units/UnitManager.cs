@@ -12,6 +12,8 @@ namespace Units
         private Vector2 _screenDimensions;
         private Camera _camera;
 
+        public float knockbackDuration;
+
         private void Start()
         {
             _camera = Camera.main;

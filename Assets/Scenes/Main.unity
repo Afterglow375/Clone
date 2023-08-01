@@ -2166,6 +2166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 664587686}
+  knockbackDuration: 0.15
 --- !u!1 &2004365420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,10 +2545,6 @@ PrefabInstance:
     - target: {fileID: 251642362174126198, guid: f783999e44dc3aa43ab47dcc879d7e14, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245136752636461135, guid: f783999e44dc3aa43ab47dcc879d7e14, type: 3}
-      propertyPath: dashDuration
-      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17537,10 +17534,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 120297212}
     m_Modifications:
-    - target: {fileID: 2556043910903928622, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
-      propertyPath: _moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6064154762508960462, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -17551,7 +17544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6064154762508960462, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.38
       objectReference: {fileID: 0}
     - target: {fileID: 6064154762508960462, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
       propertyPath: m_LocalPosition.z

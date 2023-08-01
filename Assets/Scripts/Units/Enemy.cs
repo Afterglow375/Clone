@@ -18,7 +18,10 @@ namespace Units
 
         private void FixedUpdate()
         {
-            _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+            if (!IsKnocked())
+            {
+                _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+            }
         }
     }
 }

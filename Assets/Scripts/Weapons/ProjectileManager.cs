@@ -31,6 +31,7 @@ namespace Weapons
             projectile.transform.rotation = transform.parent.rotation;
             Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
             projectileRb.velocity = transform.parent.right * _gun.projectileVelocity;
+            projectile.SetKnockback(projectileRb.velocity.normalized * _gun.knockback);
         }
 
         public void Despawn(Projectile projectile)

@@ -1,3 +1,4 @@
+using TMPro;
 using Units;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Weapons
         private float _attackRange;
         private float _attackDamage;
         private float _projectileVelocity;
+        private Vector2 _knockback;
         private float _timeElapsed;
         private float _timeLimit;
         private float _attackLength;
@@ -33,6 +35,11 @@ namespace Weapons
         {
             _projectileVelocity = projectileVelocity;
         }
+        
+        public void SetKnockback(Vector2 knockback)
+        {
+            _knockback = knockback;
+        } 
 
         public void SetTimeLimit()
         {
@@ -48,13 +55,13 @@ namespace Weapons
                 _timeElapsed = 0;
             }
         }
-
+        
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag("Enemy"))
             {
                 Enemy enemy = col.transform.parent.GetComponent<Enemy>();
-                enemy.TakeDamage(_attackDamage);
+                enemy.TakeDamage(_attackDamage, _knockback);
             }
         
             _projectileManager.Despawn(this);

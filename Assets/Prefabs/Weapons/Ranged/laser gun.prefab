@@ -181,9 +181,8 @@ MonoBehaviour:
   attackSpeed: 2
   attackRange: 25
   attackDamage: 25
-  pivotDistance: 0.7
-  knockback: 0
-  spriteRenderer: {fileID: 4314826717563585109}
+  knockback: 100
+  isAttacking: 0
   _projectileManager: {fileID: 8308750228555970754}
   projectileVelocity: 20
   numPiercing: 0
