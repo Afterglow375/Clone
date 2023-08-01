@@ -1,3 +1,4 @@
+using Units;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -46,7 +47,9 @@ namespace Weapons
             projectile.SetAttackDamage(_gun.attackDamage);
             projectile.SetProjectileVelocity(_gun.projectileVelocity);
             projectile.SetProjectileManager(this);
-            projectile.SetTimeLimit();
+            float muzzleDistanceFromCenter =
+                Vector2.Distance(transform.parent.position, UnitManager.Instance.GetPlayerCenter());
+            projectile.SetTimeLimit((_gun.attackRange - muzzleDistanceFromCenter) / _gun.projectileVelocity);
             return projectile;
         }
     

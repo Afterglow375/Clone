@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Units;
 using UnityEngine;
@@ -41,9 +42,14 @@ namespace Weapons
             _knockback = knockback;
         } 
 
-        public void SetTimeLimit()
+        public void SetTimeLimit(float timeLimit)
         {
-            _timeLimit = _attackRange / _projectileVelocity;
+            _timeLimit = timeLimit;
+        }
+
+        private void OnEnable()
+        {
+            _timeElapsed = 0;
         }
 
         private void Update()
@@ -62,9 +68,8 @@ namespace Weapons
             {
                 Enemy enemy = col.transform.parent.GetComponent<Enemy>();
                 enemy.TakeDamage(_attackDamage, _knockback);
+                _projectileManager.Despawn(this);
             }
-        
-            _projectileManager.Despawn(this);
         }
     }
 }

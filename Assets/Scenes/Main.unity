@@ -1858,11 +1858,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1115892681}
   m_CullTransparentMesh: 1
+--- !u!1 &1338283962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8070288268204073590, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
+  m_PrefabInstance: {fileID: 4398138761012256297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1528049844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6064154762508960462, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
   m_PrefabInstance: {fileID: 4398138761012256297}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &1528049850
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338283962}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.3}
+  serializedVersion: 2
+  m_Radius: 0.35
 --- !u!1 &1661396458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2651,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5409012714252892273, guid: f783999e44dc3aa43ab47dcc879d7e14, type: 3}
+      propertyPath: _weaponPrefab
+      value: 
+      objectReference: {fileID: 7231770992410392823, guid: a7f05144add33ef49b7cb0060b156ede, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17599,6 +17643,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 120297212}
     m_Modifications:
+    - target: {fileID: 2556043910903928622, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
+      propertyPath: _moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6064154762508960462, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -17647,10 +17695,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dinosaur
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1681968474455484688, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8070288268204073590, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1528049850}
   m_SourcePrefab: {fileID: 100100000, guid: a65e08c70ddc5b44baf38915f94d9849, type: 3}
 --- !u!1 &5650714545200158417
 GameObject:

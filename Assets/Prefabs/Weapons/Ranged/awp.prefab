@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939645877400179095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2898, y: 0.0788, z: 0}
+  m_LocalPosition: {x: 3.138, y: 0.131, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -64,7 +64,7 @@ Transform:
   m_Children:
   - {fileID: 146789565439765755}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5275633372669774480
 SpriteRenderer:
@@ -130,13 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7378ddb06ab0445b7b4d57e0ab8984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackAnimationLength: 0
   attackSpeed: 5
-  attackRange: 15
+  attackRange: 10
   attackDamage: 10
-  knockback: 1
+  knockback: 0
   isAttacking: 0
   _projectileManager: {fileID: 4209048265672703869}
-  projectileVelocity: 50
+  projectileVelocity: 30
   numPiercing: 0
   piercingFalloff: 0
 --- !u!1 &6875650088384698197
