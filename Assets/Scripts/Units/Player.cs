@@ -1,5 +1,6 @@
 using System;
 using Managers;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Units
@@ -12,8 +13,10 @@ namespace Units
         private float _dashCooldownTimer;
         private float _dashSpeed;
         private float _dashTimer;
-        private bool _isDashing; 
-        
+        private bool _isDashing;
+
+        private new readonly NetworkVariable<bool> IsFacingLeft = new(writePerm: NetworkVariableWritePermission.Owner);
+
         // params: player hp after taking dmg, enemy damage
         public event Action<float, float> PlayerHealthChangeEvent;
 
@@ -22,12 +25,15 @@ namespace Units
             _dashSpeed = _moveSpeed * dashSpeedMultiplier;
             UnitManager.Instance.AddPlayer(this);
         }
-
+        
         void Update()
         {
-            if (GameManager.Instance.IsPaused)
+            if (!IsOwner)
+            {
+                _spriteRenderer.flipX = IsFacingLeft.Value;
                 return;
-            
+            }
+
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.y = Input.GetAxisRaw("Vertical");
 
@@ -35,6 +41,7 @@ namespace Units
             _animator.SetFloat(Speed, _movement.sqrMagnitude);
 
             _spriteRenderer.flipX = IsFacingLeft();
+            IsFacingLeft.Value = IsFacingLeft();
             
             _dashCooldownTimer -= Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Space) && !_isDashing && IsMoving() && _dashCooldownTimer <= 0)
@@ -43,7 +50,7 @@ namespace Units
                 _dashCooldownTimer = dashCooldown;
             }
         }
-
+        
         private void FixedUpdate()
         {
             if (_isDashing)

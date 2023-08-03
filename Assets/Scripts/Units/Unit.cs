@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Units
 {
-    public class Unit : MonoBehaviour
+    public class Unit : NetworkBehaviour
     {
         [SerializeField] protected float _moveSpeed = 5f;
         [SerializeField] protected BoxCollider2D _hitbox;
@@ -92,7 +93,7 @@ namespace Units
             {
                 return _facingLeft;
             }
-
+            
             _facingLeft = _movement.x < 0;
             return _facingLeft;
         }
