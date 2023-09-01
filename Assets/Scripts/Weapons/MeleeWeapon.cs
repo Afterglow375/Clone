@@ -1,5 +1,6 @@
 ﻿using System;
 using Units;
+using Unity.Netcode.Components;
 using UnityEngine;
 using Utils;
 
@@ -8,6 +9,7 @@ namespace Weapons
     public class MeleeWeapon : Weapon
     {
         [SerializeField] private Animator _animator;
+        [SerializeField] private NetworkAnimator _networkAnimator;
         private static readonly int AttackAnim = Animator.StringToHash("Attack");
 
         public Transform circleOrigin;
@@ -22,7 +24,7 @@ namespace Weapons
 
         protected override void AttackImpl()
         {
-            _animator.SetTrigger(AttackAnim);
+            _networkAnimator.SetTrigger(AttackAnim);
         }
         
         private void OnDrawGizmosSelected()
@@ -38,7 +40,7 @@ namespace Weapons
             foreach (Collider2D col in Physics2D.OverlapCircleAll(circleOrigin.position, radius, LayerMaskHelper.EnemyHitboxMask))
             {
                 Enemy enemy = col.transform.parent.GetComponent<Enemy>();
-                Vector2 knockbackVector = (col.transform.position - _player.GetCenter()).normalized * knockback;
+                Vector2 knockbackVector = ((Vector2) col.transform.position - _player.GetCenter()).normalized * knockback;
                 enemy.TakeDamage(attackDamage, knockbackVector);
             }
         }

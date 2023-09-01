@@ -41,7 +41,7 @@ namespace Units
         protected virtual void StartImpl() {}
 
         // ensure that the hitbox's transform is at the center of the hitbox collider for this func to work
-        public Vector3 GetCenter()
+        public Vector2 GetCenter()
         {
             return _hitbox.transform.position;
         }

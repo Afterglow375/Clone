@@ -25,14 +25,29 @@ namespace Units
             _dashSpeed = _moveSpeed * dashSpeedMultiplier;
             UnitManager.Instance.AddPlayer(this);
         }
+
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            IsFacingLeft.OnValueChanged += IsFacingLeftChanged;
+        }
         
-        void Update()
+        public override void OnNetworkDespawn()
+        {
+            IsFacingLeft.OnValueChanged -= IsFacingLeftChanged;
+        }
+
+        private void IsFacingLeftChanged(bool prevValue, bool newValue)
         {
             if (!IsOwner)
             {
-                _spriteRenderer.flipX = IsFacingLeft.Value;
-                return;
+                _spriteRenderer.flipX = newValue;
             }
+        }
+
+        void Update()
+        {
+            if (!IsOwner) return;
 
             _movement.x = Input.GetAxisRaw("Horizontal");
             _movement.y = Input.GetAxisRaw("Vertical");
@@ -41,7 +56,7 @@ namespace Units
             _animator.SetFloat(Speed, _movement.sqrMagnitude);
 
             _spriteRenderer.flipX = IsFacingLeft();
-            IsFacingLeft.Value = IsFacingLeft();
+            IsFacingLeft.Value = _spriteRenderer.flipX;
             
             _dashCooldownTimer -= Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Space) && !_isDashing && IsMoving() && _dashCooldownTimer <= 0)

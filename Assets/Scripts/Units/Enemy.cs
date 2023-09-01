@@ -12,7 +12,7 @@ namespace Units
             Player nearestPlayer = UnitManager.Instance.GetNearestPlayer(GetCenter());
             if (nearestPlayer)
             {
-                _movement = (nearestPlayer.GetCenter() - transform.position).normalized;
+                _movement = (nearestPlayer.GetCenter() - (Vector2) transform.position).normalized;
                 _animator.SetFloat(Horizontal, _movement.x);
                 _animator.SetFloat(Speed, _moveSpeed);
 

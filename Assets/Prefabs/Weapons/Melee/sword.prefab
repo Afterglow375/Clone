@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 575581081037356988}
   - component: {fileID: 6202445979266015531}
   - component: {fileID: 8916755972494637008}
+  - component: {fileID: 9141062764110499252}
   m_Layer: 8
   m_Name: sword
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_Children:
   - {fileID: 8962458914823884096}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -25}
 --- !u!212 &575581081037356988
 SpriteRenderer:
@@ -127,8 +128,30 @@ MonoBehaviour:
   knockback: 20
   isAttacking: 0
   _animator: {fileID: 6202445979266015531}
+  _networkAnimator: {fileID: 9141062764110499252}
   circleOrigin: {fileID: 8962458914823884096}
   radius: 0.85
+--- !u!114 &9141062764110499252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3491611101758689438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c454b4d038b4a298e35ab2669670b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: -867371845
+    DestinationState: 1990188338
+    TransitionDuration: 0
+    TriggerNameHash: 1080829965
+    TransitionIndex: 0
+  m_Animator: {fileID: 6202445979266015531}
 --- !u!1 &4102172065666179426
 GameObject:
   m_ObjectHideFlags: 0
