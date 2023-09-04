@@ -15,6 +15,8 @@ namespace Weapons
         private Vector2 _enemyDirection;
         private readonly Vector3 _faceRightScale = new Vector3(1, 1, 1);
         private readonly Vector3 _faceLeftScale = new Vector3(1, -1, 1);
+        private readonly Vector3 _weaponRotatorRightScale = new Vector3(1, 1, 1);
+        private readonly Vector3 _weaponRotatorLeftScale = new Vector3(-1, 1, 1);
         private Vector3 _faceLeftPosition;
         private Vector3 _originalPosition;
         private Quaternion _originalRotation;
@@ -30,9 +32,9 @@ namespace Weapons
                 _weaponRotator = transform.parent;
                 _timeBetweenAttacks = 1 / _weapon.attackSpeed - _weapon.attackAnimationLength;
                 _originalPosition = transform.localPosition;
+                _originalRotation = transform.localRotation;
                 _faceLeftPosition = _originalPosition;
                 _faceLeftPosition.y *= -1;
-                _originalRotation = transform.rotation;
                 _player = GetComponentInParent<Player>();
             }
         }
@@ -65,32 +67,28 @@ namespace Weapons
 
         private void ResetWeaponPosition()
         {
-            // Debug.Log(_originalRotation);
-            // Debug.Log(_originalPosition);
-            transform.SetLocalPositionAndRotation(_originalPosition, _originalRotation);
-
-            if (_player.IsFacingLeft())
-            {
-                transform.RotateAround(_player.GetCenter(), transform.up, 180f);
-                transform.localScale = _faceLeftScale;
-            }
-            else
-            {
-                transform.localScale = _faceRightScale;
-            }
+            _weaponRotator.eulerAngles = Vector3.zero;
+            _weaponRotator.localScale = _weaponRotatorRightScale;
+            transform.localScale = _faceRightScale;
+            transform.localPosition = _originalPosition;
         }
 
         private void AimAtEnemy(Vector2 enemyPosition)
         {
-            // _enemyDirection = (enemyPosition - _player.GetCenter()).normalized;
-            // float angle = Mathf.Atan2(_enemyDirection.y, _enemyDirection.x) * Mathf.Rad2Deg;
-            // transform.SetLocalPositionAndRotation(_originalPosition, _originalRotation);
-            // // Make the weapon rotate about the character
-            // transform.RotateAround(_player.GetCenter(), transform.forward, angle);
             _enemyDirection = enemyPosition - _player.GetCenter();
             _weaponRotator.right = _enemyDirection;
-            transform.localScale = FacingLeft() ? _faceLeftScale : _faceRightScale;
-            transform.localPosition = FacingLeft() ? _faceLeftPosition : _originalPosition;
+            _weaponRotator.localScale = _player.IsFacingLeft() ? _weaponRotatorLeftScale : _weaponRotatorRightScale;
+
+            if (FacingLeft())
+            {
+                transform.localScale = _faceLeftScale;
+                transform.localPosition = _faceLeftPosition;
+            }
+            else
+            {
+                transform.localScale = _faceRightScale;
+                transform.localPosition = _originalPosition;
+            }
         }
 
         private bool CanAttackEnemy(Vector2 enemyPosition)

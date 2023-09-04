@@ -14,8 +14,8 @@ namespace Units
         private float _dashSpeed;
         private float _dashTimer;
         private bool _isDashing;
-
-        private new readonly NetworkVariable<bool> IsFacingLeft = new(writePerm: NetworkVariableWritePermission.Owner);
+        private readonly Vector3 _faceRightScale = new Vector3(1, 1, 1);
+        private readonly Vector3 _faceLeftScale = new Vector3(-1, 1, 1);
 
         // params: player hp after taking dmg, enemy damage
         public event Action<float, float> PlayerHealthChangeEvent;
@@ -24,25 +24,6 @@ namespace Units
         {
             _dashSpeed = _moveSpeed * dashSpeedMultiplier;
             UnitManager.Instance.AddPlayer(this);
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-            IsFacingLeft.OnValueChanged += IsFacingLeftChanged;
-        }
-        
-        public override void OnNetworkDespawn()
-        {
-            IsFacingLeft.OnValueChanged -= IsFacingLeftChanged;
-        }
-
-        private void IsFacingLeftChanged(bool prevValue, bool newValue)
-        {
-            if (!IsOwner)
-            {
-                _spriteRenderer.flipX = newValue;
-            }
         }
 
         void Update()
@@ -55,8 +36,7 @@ namespace Units
             _animator.SetFloat(Horizontal, _movement.x);
             _animator.SetFloat(Speed, _movement.sqrMagnitude);
 
-            _spriteRenderer.flipX = IsFacingLeft();
-            IsFacingLeft.Value = _spriteRenderer.flipX;
+            transform.localScale = IsFacingLeft() ? _faceLeftScale : _faceRightScale;
             
             _dashCooldownTimer -= Time.deltaTime;
             if (Input.GetKeyDown(KeyCode.Space) && !_isDashing && IsMoving() && _dashCooldownTimer <= 0)
